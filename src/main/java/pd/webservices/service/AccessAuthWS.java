@@ -46,4 +46,12 @@ public class AccessAuthWS implements IAccessAuth
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
+  @Override
+  @WebMethod(operationName = "writeObject")
+  public boolean writeObject(@WebParam(name = "session") String session, @WebParam(name = "shape") AbstractShape shape) throws Exception
+  {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+  
+  
 }
