@@ -9,7 +9,7 @@ import java.util.List;
 public interface IAccessAuth
 {
   public String login(String name, String passwd) throws Exception;
-//  public boolean createUser(String name, String passwd) throws RemoteException;
+  public boolean createUser(String name, String passwd) throws Exception;
   public List<String> getListObject(String session) throws Exception;
 //  public AbstractShape getObject(String session, String id) throws RemoteException;
 //  public boolean writeObject(String session,AbstractShape shape) throws RemoteException;
