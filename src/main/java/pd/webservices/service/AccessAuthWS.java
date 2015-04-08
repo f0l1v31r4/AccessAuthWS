@@ -1,13 +1,11 @@
 package pd.webservices.service;
 
 import java.util.List;
-import java.util.Map;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import pd.webservices.model.AbstractShape;
 import pd.webservices.model.IAccessAuth;
-import pd.webservices.model.IPermission;
 
 /**
  *
