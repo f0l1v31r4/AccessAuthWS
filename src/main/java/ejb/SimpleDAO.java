@@ -15,9 +15,12 @@ import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import model.IPermission;
+import model.SimplePermission;
 
 /**
- *
+ * Este classe simula um banco de dados usando estruturas simples, mas usando
+ * toda a infra-estrutura do EJB concorrência
  * @author foliveira
  */
 @Singleton
@@ -25,8 +28,9 @@ import javax.ejb.Startup;
 @Startup
 public class SimpleDAO implements SimpleDAOLocal {
 
-    private final  Map<String, String> users = new HashMap<>();
-    private final  Map<String, String> sessions = new HashMap<>();
+    private final Map<String, String> users = new HashMap<>();
+    private final Map<String, String> sessions = new HashMap<>();
+    private final Map<String, IPermission> permissions = new HashMap<>();
     
     
     /**
@@ -41,12 +45,62 @@ public class SimpleDAO implements SimpleDAOLocal {
         users.put("antonio", "789");
     }
     
+    /**
+     * Cria as sessões dos usuários do sistema
+     * @param user o login do usuário do sistema
+     * @return um identificador único da sessão
+     */
     @Override
     @Lock(LockType.WRITE)
     public String startSession(String user) {
         String id = new UID().toString();
         sessions.put(id, user);
         return id;
+    }
+
+    /**
+     * Cria uma conta de usuário no sistema
+     * @param name o nome do usuário
+     * @param passwd a senha do usuário
+     * @return true em caso de sucesso e false caso contrário
+     * @throws Exception 
+     */
+    @Override
+    @Lock(LockType.WRITE)
+    public Boolean createUser(String name, String passwd) {
+        boolean successfull;
+        if (users.containsKey(name)) {
+            //throw new RuntimeException("Usuário já cadastrado.");
+        } else if (name.isEmpty()) {
+            //throw new RuntimeException("Nome de usuario inválido.");
+        } else if (passwd.isEmpty()) {
+            //throw new RuntimeException("Senha inválida.");
+        }
+
+        users.put(name, passwd);
+
+        // criando as permissões
+        setPermissionToUser(name, new SimplePermission());
+        successfull = true;
+        return successfull;
+    }
+    
+    /**
+     * Configura as permissões de um usuário
+     *
+     * @param user o nome de um usuário valido do sistema
+     * @param permission as permissões do usuário     
+     * @throws java.lang.Exception     
+     */
+    @Override
+    @Lock(LockType.WRITE)
+    public void setPermissionToUser(String user, IPermission permission)  {
+        // se o usuário não for válido lança o erro
+        if (!users.containsKey(user)) {
+            //throw new RuntimeException(String.format("Usuário %s inválido.", user));
+        }
+        // atualizar a permissão do usuário
+        permissions.put(user, permission);
     }
 
     

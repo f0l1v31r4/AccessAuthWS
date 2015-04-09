@@ -10,7 +10,7 @@ import model.AbstractShape;
 import model.IAccessAuth;
 
 /**
- *
+ * O webservice usa o nosso ejb SimpleDAO
  * @author foliveira
  */
 @WebService(serviceName = "AccessAuthWS")
@@ -25,17 +25,18 @@ public class AccessAuthWS implements IAccessAuth {
         return simpleDAO.startSession(name);
     }
 
+    @Override
+    @WebMethod(operationName = "createUser")
+    public boolean createUser(@WebParam(name = "name") String name, @WebParam(name = "passwd") String passwd) throws Exception {
+        return simpleDAO.createUser(name, passwd);
+    }
+
 //    @Override
 //    @WebMethod(operationName = "getListObject")
 //    public List<String> getListObject(@WebParam(name = "session") String session) throws Exception {
 //        throw new UnsupportedOperationException("Not supported yet.");
 //    }
 //
-//    @Override
-//    @WebMethod(operationName = "createUser")
-//    public boolean createUser(@WebParam(name = "name") String name, @WebParam(name = "passwd") String passwd) throws Exception {
-//        throw new UnsupportedOperationException("Not supported yet.");
-//    }
 //
 //    @Override
 //    @WebMethod(operationName = "getObject")
