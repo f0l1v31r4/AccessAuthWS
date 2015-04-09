@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.EJBException;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
@@ -67,14 +68,14 @@ public class SimpleDAO implements SimpleDAOLocal {
      */
     @Override
     @Lock(LockType.WRITE)
-    public Boolean createUser(String name, String passwd) {
+    public Boolean createUser(String name, String passwd) throws EJBException {
         boolean successfull;
         if (users.containsKey(name)) {
-            //throw new RuntimeException("Usuário já cadastrado.");
+            throw new EJBException("Usuário já cadastrado.");
         } else if (name.isEmpty()) {
-            //throw new RuntimeException("Nome de usuario inválido.");
+            throw new EJBException("Nome de usuario inválido.");
         } else if (passwd.isEmpty()) {
-            //throw new RuntimeException("Senha inválida.");
+            throw new EJBException("Senha inválida.");
         }
 
         users.put(name, passwd);
@@ -94,7 +95,7 @@ public class SimpleDAO implements SimpleDAOLocal {
      */
     @Override
     @Lock(LockType.WRITE)
-    public void setPermissionToUser(String user, IPermission permission)  {
+    public void setPermissionToUser(String user, IPermission permission) throws EJBException {
         // se o usuário não for válido lança o erro
         if (!users.containsKey(user)) {
             //throw new RuntimeException(String.format("Usuário %s inválido.", user));

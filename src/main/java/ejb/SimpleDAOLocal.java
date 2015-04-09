@@ -1,5 +1,6 @@
 package ejb;
 
+import javax.ejb.EJBException;
 import javax.ejb.Local;
 import model.IPermission;
 
@@ -12,7 +13,7 @@ public interface SimpleDAOLocal {
 
     String startSession(String name);
     void initUsers();
-    Boolean createUser(String name, String passwd);
-    void setPermissionToUser(String user, IPermission permission);
+    Boolean createUser(String name, String passwd) throws EJBException;
+    void setPermissionToUser(String user, IPermission permission) throws EJBException;
     
 }
