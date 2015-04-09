@@ -1,4 +1,4 @@
-package pd.webservices.model;
+package model;
 
 /**
  *
