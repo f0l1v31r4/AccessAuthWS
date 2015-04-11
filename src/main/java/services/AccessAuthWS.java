@@ -3,6 +3,7 @@ package services;
 import ejb.SimpleDAOLocal;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;

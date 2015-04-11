@@ -19,8 +19,10 @@ import javax.ejb.LockType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import model.AbstractShape;
+import model.Circle;
 import model.IPermission;
 import model.SimplePermission;
+import model.Square;
 
 /**
  * Este classe simula um banco de dados usando estruturas simples, mas usando
@@ -37,17 +39,38 @@ public class SimpleDAO implements SimpleDAOLocal {
     private final Map<String, IPermission> permissions = new HashMap<>();
     private final Map<String, AbstractShape> objects = new HashMap<>();
     
+    @PostConstruct
+    private void starComponent()
+    {
+        initUsers();
+        initPermissions();
+        initObjects();
+    }
     
     /**
      * Este método será chamado apos a acontrução do bean
      */
-    @Override
-    @PostConstruct
+    @Lock(LockType.WRITE)
     public void initUsers() {
         users.put("admin", "123");
         users.put("caio", "456");
         users.put("andre", "789");
         users.put("antonio", "789");
+    }
+    
+    @Lock(LockType.WRITE)
+    public void initPermissions() {
+        permissions.put("admin", new SimplePermission(true,true));
+        permissions.put("caio", new SimplePermission(false,true));
+        permissions.put("andre", new SimplePermission(true,false));
+        permissions.put("antonio", new SimplePermission());
+    }
+    
+    @Lock(LockType.WRITE)
+    public void initObjects() {
+        objects.put("circulo1",new Circle("circulo1","admin"));
+        objects.put("circulo2",new Circle("circulo2","admin"));
+        objects.put("Quadrado1",new Square("Quadrado1","caio"));
     }
     
     /**

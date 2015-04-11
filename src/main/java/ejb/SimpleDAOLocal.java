@@ -12,8 +12,7 @@ import model.IPermission;
 @Local
 public interface SimpleDAOLocal {
 
-    String startSession(String name);
-    void initUsers();
+    String startSession(String name);    
     Boolean createUser(String name, String passwd) throws EJBException;
     void setPermissionToUser(String user, IPermission permission) throws EJBException;
     List<String> getListObject(String session) throws EJBException;
