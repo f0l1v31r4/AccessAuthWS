@@ -5,6 +5,7 @@
  */
 package ejb;
 
+import java.rmi.RemoteException;
 import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -148,8 +149,48 @@ public class SimpleDAO implements SimpleDAOLocal {
         return listObject;        
     }
 
+    @Override
+    public AbstractShape getObject(String session, String id) throws EJBException {
+        AbstractShape shape;
+        if (!sessions.containsKey(session) ) {
+            throw new EJBException("Invalid session.");
+        }
+
+        String user = sessionToUser(session);
+        if (!getPermissionsFromUser(session)[0]) {
+            throw new RuntimeException(String.format("User %s does not have permission to read object %s.", user, id));
+        }
+
+        if (!objects.containsKey(id)) {
+            throw new RuntimeException(String.format("Object does not exist %s.", id));
+        }
+
+        shape = objects.get(id);
+        return shape;
+    }
+
     
+    public String sessionToUser(String session) {
+        if (!sessions.containsKey(session) || session.isEmpty()) {
+            return null;
+        }
+
+        return sessions.get(session);
+    }
     
-    
+    public boolean[] getPermissionsFromUser(String user) throws EJBException {
+        // permissao padrao
+        boolean[] permission = {false, false};
+        // se o usuário for inválido, lança um erro
+        if (!users.containsKey(user) || user.isEmpty()) {
+            throw new EJBException(String.format("Usuário %s inválido.", user));
+        }
+
+        IPermission authorization = this.permissions.get(user);
+        permission[0] = authorization.canRead();
+        permission[1] = authorization.canWrite();
+
+        return permission;
+    }
     
 }
