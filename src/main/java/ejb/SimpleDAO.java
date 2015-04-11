@@ -114,7 +114,7 @@ public class SimpleDAO implements SimpleDAOLocal {
         List<String> listObject = new ArrayList<>();
 
         if (!sessions.containsKey(session)  ) {
-            throw new RuntimeException("Invalid session.");
+            throw new EJBException("Sessão inválida");
         }
 
         for (AbstractShape shape : objects.values()) {
