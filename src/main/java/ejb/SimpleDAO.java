@@ -18,11 +18,11 @@ import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import model.AbstractShape;
-import model.Circle;
-import model.IPermission;
-import model.SimplePermission;
-import model.Square;
+import common.AbstractShape;
+import common.Circle;
+import common.IPermission;
+import common.SimplePermission;
+import common.Square;
 
 /**
  * Este classe simula um banco de dados usando estruturas simples, mas usando

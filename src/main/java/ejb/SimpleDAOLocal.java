@@ -3,8 +3,8 @@ package ejb;
 import java.util.List;
 import javax.ejb.EJBException;
 import javax.ejb.Local;
-import model.AbstractShape;
-import model.IPermission;
+import common.AbstractShape;
+import common.IPermission;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package model;
+package common;
 
 /**
  * Uma implementação simples de sistema de autorização e acesso a objetos
