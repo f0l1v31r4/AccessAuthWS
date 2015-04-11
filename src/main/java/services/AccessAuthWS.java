@@ -31,11 +31,11 @@ public class AccessAuthWS implements IAccessAuth {
         return simpleDAO.createUser(name, passwd);
     }
 
-//    @Override
-//    @WebMethod(operationName = "getListObject")
-//    public List<String> getListObject(@WebParam(name = "session") String session) throws Exception {
-//        throw new UnsupportedOperationException("Not supported yet.");
-//    }
+    @Override
+    @WebMethod(operationName = "getListObject")
+    public List<String> getListObject(@WebParam(name = "session") String session) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 //
 //
 //    @Override
