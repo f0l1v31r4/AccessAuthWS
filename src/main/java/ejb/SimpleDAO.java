@@ -16,6 +16,7 @@ import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import model.AbstractShape;
 import model.IPermission;
 import model.SimplePermission;
 
@@ -32,6 +33,7 @@ public class SimpleDAO implements SimpleDAOLocal {
     private final Map<String, String> users = new HashMap<>();
     private final Map<String, String> sessions = new HashMap<>();
     private final Map<String, IPermission> permissions = new HashMap<>();
+    private final Map<String, AbstractShape> objects = new HashMap<>();
     
     
     /**
