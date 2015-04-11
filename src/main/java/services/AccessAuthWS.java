@@ -42,7 +42,7 @@ public class AccessAuthWS implements IAccessAuth {
     @Override
     @WebMethod(operationName = "getObject")
     public AbstractShape getObject(@WebParam(name = "session") String session, @WebParam(name = "id") String id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return simpleDAO.getObject(session, id);
     }
 //
 //    @Override
