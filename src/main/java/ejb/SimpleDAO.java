@@ -5,7 +5,6 @@
  */
 package ejb;
 
-import java.rmi.RemoteException;
 import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.HashMap;
