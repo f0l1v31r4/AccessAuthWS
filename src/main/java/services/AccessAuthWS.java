@@ -34,7 +34,7 @@ public class AccessAuthWS implements IAccessAuth {
     @Override
     @WebMethod(operationName = "getListObject")
     public List<String> getListObject(@WebParam(name = "session") String session) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return simpleDAO.getListObject(session);
     }
 //
 //

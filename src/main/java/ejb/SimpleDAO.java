@@ -6,7 +6,9 @@
 package ejb;
 
 import java.rmi.server.UID;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.ConcurrencyManagement;
@@ -93,17 +95,34 @@ public class SimpleDAO implements SimpleDAOLocal {
      *
      * @param user o nome de um usuário valido do sistema
      * @param permission as permissões do usuário     
-     * @throws java.lang.Exception     
+     * @throws EJBException     
      */
     @Override
     @Lock(LockType.WRITE)
     public void setPermissionToUser(String user, IPermission permission) throws EJBException {
         // se o usuário não for válido lança o erro
         if (!users.containsKey(user)) {
-            //throw new RuntimeException(String.format("Usuário %s inválido.", user));
+            throw new EJBException(String.format("Usuário %s inválido.", user));
         }
         // atualizar a permissão do usuário
         permissions.put(user, permission);
+    }
+
+    @Override
+    @Lock(LockType.READ)
+    public List<String> getListObject(String session) throws EJBException {
+        List<String> listObject = new ArrayList<>();
+
+        if (!sessions.containsKey(session)  ) {
+            throw new RuntimeException("Invalid session.");
+        }
+
+        for (AbstractShape shape : objects.values()) {
+            String info = shape.toString();
+            listObject.add(info);
+        }
+
+        return listObject;        
     }
 
     
