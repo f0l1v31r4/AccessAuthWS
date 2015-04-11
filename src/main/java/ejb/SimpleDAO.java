@@ -92,7 +92,7 @@ public class SimpleDAO implements SimpleDAOLocal {
      * @param name o nome do usuário
      * @param passwd a senha do usuário
      * @return true em caso de sucesso e false caso contrário
-     * @throws Exception 
+     * @throws EJBException 
      */
     @Override
     @Lock(LockType.WRITE)
