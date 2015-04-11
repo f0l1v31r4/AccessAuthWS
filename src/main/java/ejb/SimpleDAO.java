@@ -154,9 +154,10 @@ public class SimpleDAO implements SimpleDAOLocal {
         if (!sessions.containsKey(session) ) {
             throw new EJBException("Invalid session.");
         }
-
+                
         String user = sessionToUser(session);
-        if (!getPermissionsFromUser(session)[0]) {
+                
+        if (!getPermissionsFromUser(user)[0]) {
             throw new RuntimeException(String.format("User %s does not have permission to read object %s.", user, id));
         }
 
