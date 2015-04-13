@@ -101,11 +101,11 @@ public class SimpleDAO implements SimpleDAOLocal {
     public Boolean createUser(String name, String passwd) throws EJBException {
         boolean successfull;
         if (users.containsKey(name)) {
-            throw new EJBException(String.format("Usuário '%s' já cadastrado.",name));
+            throw new EJBException(String.format("Usuario '%s' ja cadastrado.",name));
         } else if (name.isEmpty()) {
-            throw new EJBException("Nome de usuario inválido.");
+            throw new EJBException("Nome de usuario invalido.");
         } else if (passwd.isEmpty()) {
-            throw new EJBException("Senha inválida.");
+            throw new EJBException("Senha invalida.");
         }
 
         users.put(name, passwd);
@@ -128,7 +128,7 @@ public class SimpleDAO implements SimpleDAOLocal {
     public void setPermissionToUser(String user, IPermission permission) throws EJBException {
         // se o usuário não for válido lança o erro
         if (!users.containsKey(user)) {
-            throw new EJBException(String.format("Usuário '%s' inválido.", user));
+            throw new EJBException(String.format("Usuario '%s' invalido.", user));
         }
         // atualizar a permissão do usuário
         permissions.put(user, permission);
@@ -146,7 +146,7 @@ public class SimpleDAO implements SimpleDAOLocal {
         List<String> listObject = new ArrayList<>();
 
         if (!sessions.containsKey(session)  ) {
-            throw new EJBException(String.format("Sessão '%s' inválida",session));
+            throw new EJBException(String.format("Sessao '%s' invalida",session));
         }
 
         for (AbstractShape shape : objects.values()) {
@@ -168,17 +168,17 @@ public class SimpleDAO implements SimpleDAOLocal {
     public AbstractShape getObject(String session, String id) throws EJBException {
         AbstractShape shape;
         if (!sessions.containsKey(session) ) {
-            throw new EJBException(String.format("Sessão '%s' inválida.",session));
+            throw new EJBException(String.format("Sessao '%s' invalida.",session));
         }
                 
         String user = sessionToUser(session);
                 
         if (!getPermissionsFromUser(user)[0]) {
-            throw new EJBException(String.format("Usuário '%s' não tem permissão de ler o objeto '%s'.", user, id));
+            throw new EJBException(String.format("Usuario '%s' nao tem permissao de ler o objeto '%s'.", user, id));
         }
 
         if (!objects.containsKey(id)) {
-            throw new EJBException(String.format("O objeto '%s' não existe.", id));
+            throw new EJBException(String.format("O objeto '%s' nao existe.", id));
         }
 
         //shape = objects.get(id);
@@ -201,7 +201,7 @@ public class SimpleDAO implements SimpleDAOLocal {
         boolean[] permission = {false, false};
         // se o usuário for inválido, lança um erro
         if (!users.containsKey(user) || user.isEmpty()) {
-            throw new EJBException(String.format("Usuário %s inválido.", user));
+            throw new EJBException(String.format("Usuario %s invalido.", user));
         }
 
         IPermission authorization = this.permissions.get(user);
@@ -210,5 +210,48 @@ public class SimpleDAO implements SimpleDAOLocal {
 
         return permission;
     }
-    
+
+  @Override
+  public Boolean writeObject(String session, AbstractShape shape) throws EJBException
+  {
+        boolean successfull;
+
+        if (!sessions.containsKey(session)) {
+            throw new RuntimeException(String.format("Sessao '%s' invalida.", session));
+        }
+
+        String user = sessionToUser(session);
+        if (!getPermissionsFromUser(user)[1]) {
+            throw new RuntimeException(String.format("Usuario '%s' nao tem permissao de criar o objeto '%s'.", user, shape.getId()));
+        }
+
+        LOGGER.info(String.format("Solicitacao de escrita de objeto %s do usuario da sessao %s",shape.getId(), session));
+        objects.put(user, shape);
+        successfull = true;
+
+        return successfull;
+  }
+
+  @Override
+  public Boolean removeObject(String session, String id) throws EJBException
+  {
+        boolean successfull = true;
+        if (!sessions.containsKey(session)) {
+            throw new EJBException(String.format("Sessao invalida '%s'.",session));
+        }
+
+        String user = sessionToUser(session);
+        if (!getPermissionsFromUser(user)[1]) {
+            throw new EJBException(String.format("Usuario '%s' nao tem permissao de remover o objecto '%s'.", user, id));
+        }
+
+        if (!objects.containsKey(id)) {
+            throw new EJBException(String.format("O objeto '%s' nao existe.", id));
+        }
+        LOGGER.info(String.format("Solicitacao de remocao do objeto '%s', sessao '%s' ", id,session));
+        objects.remove(id);
+        return successfull;
+  }
+  
+  
 }

@@ -43,17 +43,17 @@ public class AccessAuthWS implements IAccessAuth {
     public AbstractShape getObject(@WebParam(name = "session") String session, @WebParam(name = "id") String id) throws Exception {
         return simpleDAO.getObject(session, id);
     }
-//
-//    @Override
-//    @WebMethod(operationName = "writeObject")
-//    public boolean writeObject(@WebParam(name = "session") String session, @WebParam(name = "shape") AbstractShape shape) throws Exception {
-//        throw new UnsupportedOperationException("Not supported yet.");
-//    }
-//
-//    @Override
-//    @WebMethod(operationName = "removeObject")
-//    public boolean removeObject(@WebParam(name = "session") String session, @WebParam(name = "id") String id) throws Exception {
-//        throw new UnsupportedOperationException("Not supported yet.");
-//    }
+
+    @Override
+    @WebMethod(operationName = "writeObject")
+    public boolean writeObject(@WebParam(name = "session") String session, @WebParam(name = "shape") AbstractShape shape) throws Exception {
+        return simpleDAO.writeObject(session, shape);
+    }
+
+    @Override
+    @WebMethod(operationName = "removeObject")
+    public boolean removeObject(@WebParam(name = "session") String session, @WebParam(name = "id") String id) throws Exception {
+        return simpleDAO.removeObject(session, id);
+    }
 
 }
