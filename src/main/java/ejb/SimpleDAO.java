@@ -18,6 +18,7 @@ import common.Circle;
 import common.IPermission;
 import common.SimplePermission;
 import common.Square;
+import java.util.logging.Logger;
 
 /**
  * Este classe simula um banco de dados usando estruturas simples, mas usando
@@ -33,6 +34,7 @@ public class SimpleDAO implements SimpleDAOLocal {
     private final Map<String, String> sessions = new HashMap<>();
     private final Map<String, IPermission> permissions = new HashMap<>();
     private final Map<String, AbstractShape> objects = new HashMap<>();
+    private static final Logger LOGGER = Logger.getLogger(SimpleDAO.class.getName());
     
     @PostConstruct
     private void starComponent()
@@ -93,7 +95,7 @@ public class SimpleDAO implements SimpleDAOLocal {
     public Boolean createUser(String name, String passwd) throws EJBException {
         boolean successfull;
         if (users.containsKey(name)) {
-            throw new EJBException("Usuário já cadastrado.");
+            throw new EJBException(String.format("Usuário '%s' já cadastrado.",name));
         } else if (name.isEmpty()) {
             throw new EJBException("Nome de usuario inválido.");
         } else if (passwd.isEmpty()) {
@@ -120,7 +122,7 @@ public class SimpleDAO implements SimpleDAOLocal {
     public void setPermissionToUser(String user, IPermission permission) throws EJBException {
         // se o usuário não for válido lança o erro
         if (!users.containsKey(user)) {
-            throw new EJBException(String.format("Usuário %s inválido.", user));
+            throw new EJBException(String.format("Usuário '%s' inválido.", user));
         }
         // atualizar a permissão do usuário
         permissions.put(user, permission);
@@ -132,7 +134,7 @@ public class SimpleDAO implements SimpleDAOLocal {
         List<String> listObject = new ArrayList<>();
 
         if (!sessions.containsKey(session)  ) {
-            throw new EJBException("Sessão inválida");
+            throw new EJBException(String.format("Sessão '%s' inválida",session));
         }
 
         for (AbstractShape shape : objects.values()) {
@@ -147,7 +149,7 @@ public class SimpleDAO implements SimpleDAOLocal {
     public AbstractShape getObject(String session, String id) throws EJBException {
         AbstractShape shape;
         if (!sessions.containsKey(session) ) {
-            throw new EJBException("Sessçao .");
+            throw new EJBException(String.format("Sessão '%s' inválida.",session));
         }
                 
         String user = sessionToUser(session);
@@ -157,10 +159,12 @@ public class SimpleDAO implements SimpleDAOLocal {
         }
 
         if (!objects.containsKey(id)) {
-            throw new EJBException(String.format("Object does not exist %s.", id));
+            throw new EJBException(String.format("O objeto '%s' não existe.", id));
         }
 
-        shape = objects.get(id);
+        //shape = objects.get(id);
+        shape = new Circle("Teste1", "admin");
+        
         return shape;
     }
 
