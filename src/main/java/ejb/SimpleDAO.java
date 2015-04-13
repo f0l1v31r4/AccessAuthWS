@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ejb;
 
 import java.rmi.server.UID;
@@ -152,17 +147,17 @@ public class SimpleDAO implements SimpleDAOLocal {
     public AbstractShape getObject(String session, String id) throws EJBException {
         AbstractShape shape;
         if (!sessions.containsKey(session) ) {
-            throw new EJBException("Invalid session.");
+            throw new EJBException("Sessçao .");
         }
                 
         String user = sessionToUser(session);
                 
         if (!getPermissionsFromUser(user)[0]) {
-            throw new RuntimeException(String.format("User %s does not have permission to read object %s.", user, id));
+            throw new EJBException(String.format("Usuário '%s' não tem permissão de ler o objeto '%s'.", user, id));
         }
 
         if (!objects.containsKey(id)) {
-            throw new RuntimeException(String.format("Object does not exist %s.", id));
+            throw new EJBException(String.format("Object does not exist %s.", id));
         }
 
         shape = objects.get(id);
