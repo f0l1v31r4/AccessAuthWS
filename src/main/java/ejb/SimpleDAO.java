@@ -55,6 +55,9 @@ public class SimpleDAO implements SimpleDAOLocal {
         users.put("antonio", "789");
     }
     
+    /**
+     * 
+     */
     @Lock(LockType.WRITE)
     public void initPermissions() {
         permissions.put("admin", new SimplePermission(true,true));
@@ -63,6 +66,9 @@ public class SimpleDAO implements SimpleDAOLocal {
         permissions.put("antonio", new SimplePermission());
     }
     
+    /**
+     * 
+     */
     @Lock(LockType.WRITE)
     public void initObjects() {
         objects.put("circulo1",new Circle("circulo1","admin"));
@@ -128,6 +134,12 @@ public class SimpleDAO implements SimpleDAOLocal {
         permissions.put(user, permission);
     }
 
+    /**
+     * 
+     * @param session
+     * @return
+     * @throws EJBException 
+     */
     @Override
     @Lock(LockType.READ)
     public List<String> getListObject(String session) throws EJBException {
@@ -145,6 +157,13 @@ public class SimpleDAO implements SimpleDAOLocal {
         return listObject;        
     }
 
+    /**
+     * 
+     * @param session
+     * @param id
+     * @return
+     * @throws EJBException 
+     */
     @Override
     public AbstractShape getObject(String session, String id) throws EJBException {
         AbstractShape shape;
