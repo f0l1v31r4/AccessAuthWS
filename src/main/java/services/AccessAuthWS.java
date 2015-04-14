@@ -1,5 +1,7 @@
 package services;
 
+import common.AbstractShape;
+import common.Circle;
 import ejb.SimpleDAOLocal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -8,12 +10,14 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import common.IAccessAuth;
 import common.Square;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  * O webservice usa o nosso ejb SimpleDAO
  * @author foliveira
  */
 @WebService(serviceName = "AccessAuthWS")
+@XmlSeeAlso({AbstractShape.class,Circle.class,Square.class})
 public class AccessAuthWS implements IAccessAuth {
 
     @EJB
@@ -40,13 +44,13 @@ public class AccessAuthWS implements IAccessAuth {
 
     @Override
     @WebMethod(operationName = "getObject")
-    public Square getObject(@WebParam(name = "session") String session, @WebParam(name = "id") String id) throws Exception {
+    public AbstractShape getObject(@WebParam(name = "session") String session, @WebParam(name = "id") String id) throws Exception {
         return simpleDAO.getObject(session, id);
     }
 
     @Override
     @WebMethod(operationName = "writeObject")
-    public boolean writeObject(@WebParam(name = "session") String session, @WebParam(name = "shape") Square shape) throws Exception {
+    public boolean writeObject(@WebParam(name = "session") String session, @WebParam(name = "shape") AbstractShape shape) throws Exception {
         return simpleDAO.writeObject(session, shape);
     }
 
