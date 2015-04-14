@@ -34,6 +34,9 @@ public class SimpleDAO implements SimpleDAOLocal {
     private final Map<String, Square> objects = new HashMap<>();
     private static final Logger LOGGER = Logger.getLogger(SimpleDAO.class.getName());
     
+    /**
+     * 
+     */
     @PostConstruct
     private void starComponent()
     {
