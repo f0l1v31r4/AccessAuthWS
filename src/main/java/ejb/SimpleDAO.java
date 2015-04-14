@@ -59,7 +59,7 @@ public class SimpleDAO implements SimpleDAOLocal {
     @Lock(LockType.WRITE)
     public void initPermissions() {
         permissions.put("admin", new SimplePermission(true,true));
-        permissions.put("caio", new SimplePermission(false,true));
+        permissions.put("caio", new SimplePermission(false,false));
         permissions.put("andre", new SimplePermission(true,false));
         permissions.put("antonio", new SimplePermission());
     }
