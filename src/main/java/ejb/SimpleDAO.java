@@ -33,7 +33,7 @@ public class SimpleDAO implements SimpleDAOLocal {
     private final Map<String, String> users = new HashMap<>();
     private final Map<String, String> sessions = new HashMap<>();
     private final Map<String, IPermission> permissions = new HashMap<>();
-    private final Map<String, AbstractShape> objects = new HashMap<>();
+    private final Map<String, Square> objects = new HashMap<>();
     private static final Logger LOGGER = Logger.getLogger(SimpleDAO.class.getName());
     
     @PostConstruct
@@ -71,9 +71,9 @@ public class SimpleDAO implements SimpleDAOLocal {
      */
     @Lock(LockType.WRITE)
     public void initObjects() {
-        objects.put("circulo1",new Circle("circulo1","admin"));
-        objects.put("circulo2",new Circle("circulo2","admin"));
-        objects.put("Quadrado1",new Square("Quadrado1","caio"));
+        objects.put("Obj1",new Square("Obj1","admin"));
+        objects.put("Obj2",new Square("Obj2","admin"));
+        objects.put("Obj3",new Square("Obj3","caio"));
     }
     
     /**
@@ -149,7 +149,7 @@ public class SimpleDAO implements SimpleDAOLocal {
             throw new EJBException(String.format("Sessao '%s' invalida",session));
         }
 
-        for (AbstractShape shape : objects.values()) {
+        for (Square shape : objects.values()) {
             String info = shape.toString();
             listObject.add(info);
         }
@@ -165,8 +165,8 @@ public class SimpleDAO implements SimpleDAOLocal {
      * @throws EJBException 
      */
     @Override
-    public AbstractShape getObject(String session, String id) throws EJBException {
-        AbstractShape shape;
+    public Square getObject(String session, String id) throws EJBException {
+        Square shape;
         if (!sessions.containsKey(session) ) {
             throw new EJBException(String.format("Sessao '%s' invalida.",session));
         }
@@ -181,8 +181,8 @@ public class SimpleDAO implements SimpleDAOLocal {
             throw new EJBException(String.format("O objeto '%s' nao existe.", id));
         }
 
-        //shape = objects.get(id);
-        shape = new Circle("Teste1", "admin");
+        shape = objects.get(id);
+       
         
         return shape;
     }
@@ -212,17 +212,17 @@ public class SimpleDAO implements SimpleDAOLocal {
     }
 
   @Override
-  public Boolean writeObject(String session, AbstractShape shape) throws EJBException
+  public Boolean writeObject(String session, Square shape) throws EJBException
   {
         boolean successfull;
 
         if (!sessions.containsKey(session)) {
-            throw new RuntimeException(String.format("Sessao '%s' invalida.", session));
+            throw new EJBException(String.format("Sessao '%s' invalida.", session));
         }
 
         String user = sessionToUser(session);
         if (!getPermissionsFromUser(user)[1]) {
-            throw new RuntimeException(String.format("Usuario '%s' nao tem permissao de criar o objeto '%s'.", user, shape.getId()));
+            throw new EJBException(String.format("Usuario '%s' nao tem permissao de criar o objeto '%s'.", user, shape.getId()));
         }
 
         LOGGER.info(String.format("Solicitacao de escrita de objeto %s do usuario da sessao %s",shape.getId(), session));

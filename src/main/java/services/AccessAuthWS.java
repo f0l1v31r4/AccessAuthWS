@@ -8,6 +8,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import common.AbstractShape;
 import common.IAccessAuth;
+import common.Square;
 
 /**
  * O webservice usa o nosso ejb SimpleDAO
@@ -40,13 +41,13 @@ public class AccessAuthWS implements IAccessAuth {
 
     @Override
     @WebMethod(operationName = "getObject")
-    public AbstractShape getObject(@WebParam(name = "session") String session, @WebParam(name = "id") String id) throws Exception {
+    public Square getObject(@WebParam(name = "session") String session, @WebParam(name = "id") String id) throws Exception {
         return simpleDAO.getObject(session, id);
     }
 
     @Override
     @WebMethod(operationName = "writeObject")
-    public boolean writeObject(@WebParam(name = "session") String session, @WebParam(name = "shape") AbstractShape shape) throws Exception {
+    public boolean writeObject(@WebParam(name = "session") String session, @WebParam(name = "shape") Square shape) throws Exception {
         return simpleDAO.writeObject(session, shape);
     }
 
