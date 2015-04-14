@@ -13,8 +13,6 @@ import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import common.AbstractShape;
-import common.Circle;
 import common.IPermission;
 import common.SimplePermission;
 import common.Square;
