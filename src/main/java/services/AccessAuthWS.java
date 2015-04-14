@@ -6,7 +6,6 @@ import javax.ejb.EJB;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import common.AbstractShape;
 import common.IAccessAuth;
 import common.Square;
 
