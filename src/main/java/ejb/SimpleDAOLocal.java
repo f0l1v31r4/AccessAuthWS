@@ -5,6 +5,7 @@ import javax.ejb.EJBException;
 import javax.ejb.Local;
 import common.IPermission;
 import common.Square;
+import java.util.Map;
 
 /**
  * 
@@ -20,5 +21,10 @@ public interface SimpleDAOLocal {
     Square getObject(String session, String id) throws EJBException;
     Boolean writeObject(String session,Square shape) throws EJBException;
     Boolean removeObject(String session, String id) throws EJBException;
+    Map<String, String> getUsers();
+    Map<String, String> getSessions();
+    Map<String, IPermission> getPermissions();
+    Map<String, Square> getObjects();
+  
     
 }

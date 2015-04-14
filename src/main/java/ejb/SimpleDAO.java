@@ -54,6 +54,7 @@ public class SimpleDAO implements SimpleDAOLocal {
         users.put("caio", "456");
         users.put("andre", "789");
         users.put("antonio", "789");
+        LOGGER.info("Criando os usuários iniciais da aplicação: admin,caio,andre,antonio.");
     }
     
     /**
@@ -65,6 +66,7 @@ public class SimpleDAO implements SimpleDAOLocal {
         permissions.put("caio", new SimplePermission(false,false));
         permissions.put("andre", new SimplePermission(true,false));
         permissions.put("antonio", new SimplePermission());
+        LOGGER.info("Criando as permisões iniciais dos usuários: admin,caio,andre,antonio.");
     }
     
     /**
@@ -75,6 +77,7 @@ public class SimpleDAO implements SimpleDAOLocal {
         objects.put("Obj1",new Square("Obj1","admin"));
         objects.put("Obj2",new Square("Obj2","admin"));
         objects.put("Obj3",new Square("Obj3","caio"));
+        LOGGER.info("Criando os objetos iniciais da aplicação: Obj1,Obj2,Obj3.");
     }
     
     /**
@@ -85,9 +88,16 @@ public class SimpleDAO implements SimpleDAOLocal {
     @Override
     @Lock(LockType.WRITE)
     public String startSession(String user) {
+      
+      if(sessions.containsKey(user))
+        return sessions.get(user);
+      else
+      {
         String id = new UID().toString();
         sessions.put(id, user);
+        LOGGER.info(String.format("Criando a sessão '%s' para o usuários %s.",id,user));
         return id;
+      }
     }
 
     /**
@@ -253,6 +263,32 @@ public class SimpleDAO implements SimpleDAOLocal {
         objects.remove(id);
         return successfull;
   }
+
+    @Override
+  public Map<String, String> getUsers()
+  {
+    return users;
+  }
+
+    @Override
+  public Map<String, String> getSessions()
+  {
+    LOGGER.info("Solicitação de sessões.");
+    return sessions;
+  }
+
+    @Override
+  public Map<String, IPermission> getPermissions()
+  {
+    return permissions;
+  }
+
+    @Override
+  public Map<String, Square> getObjects()
+  {
+    return objects;
+  }
+  
   
   
 }

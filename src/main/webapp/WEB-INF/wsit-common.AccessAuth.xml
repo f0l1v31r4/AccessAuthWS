@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="WSTest" targetNamespace="http://common/" xmlns:tns="http://common/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:fi="http://java.sun.com/xml/ns/wsit/2006/09/policy/fastinfoset/service" xmlns:tcp="http://java.sun.com/xml/ns/wsit/2006/09/policy/soaptcp/service" 
+ >
+    <message name="initUsers"/>
+    <message name="initUsersResponse"/>
+    <message name="initPermissions"/>
+    <message name="initPermissionsResponse"/>
+    <message name="initObjects"/>
+    <message name="initObjectsResponse"/>
+    <message name="startSession"/>
+    <message name="startSessionResponse"/>
+    <message name="getUsers"/>
+    <message name="getUsersResponse"/>
+    <message name="getSessions"/>
+    <message name="getSessionsResponse"/>
+    <message name="getPermissions"/>
+    <message name="getPermissionsResponse"/>
+    <message name="getObjects"/>
+    <message name="getObjectsResponse"/>
+    <message name="setPermissionToUser"/>
+    <message name="setPermissionToUserResponse"/>
+    <message name="EJBException"/>
+    <message name="sessionToUser"/>
+    <message name="sessionToUserResponse"/>
+    <message name="getPermissionsFromUser"/>
+    <message name="getPermissionsFromUserResponse"/>
+    <message name="login"/>
+    <message name="loginResponse"/>
+    <message name="createUser"/>
+    <message name="createUserResponse"/>
+    <message name="getListObject"/>
+    <message name="getListObjectResponse"/>
+    <message name="getObject"/>
+    <message name="getObjectResponse"/>
+    <message name="writeObject"/>
+    <message name="writeObjectResponse"/>
+    <message name="removeObject"/>
+    <message name="removeObjectResponse"/>
+    <portType name="AccessAuth">
+        <operation name="initUsers">
+            <input message="tns:initUsers"/>
+            <output message="tns:initUsersResponse"/>
+        </operation>
+        <operation name="initPermissions">
+            <input message="tns:initPermissions"/>
+            <output message="tns:initPermissionsResponse"/>
+        </operation>
+        <operation name="initObjects">
+            <input message="tns:initObjects"/>
+            <output message="tns:initObjectsResponse"/>
+        </operation>
+        <operation name="startSession">
+            <input message="tns:startSession"/>
+            <output message="tns:startSessionResponse"/>
+        </operation>
+        <operation name="getUsers">
+            <input message="tns:getUsers"/>
+            <output message="tns:getUsersResponse"/>
+        </operation>
+        <operation name="getSessions">
+            <input message="tns:getSessions"/>
+            <output message="tns:getSessionsResponse"/>
+        </operation>
+        <operation name="getPermissions">
+            <input message="tns:getPermissions"/>
+            <output message="tns:getPermissionsResponse"/>
+        </operation>
+        <operation name="getObjects">
+            <input message="tns:getObjects"/>
+            <output message="tns:getObjectsResponse"/>
+        </operation>
+        <operation name="setPermissionToUser">
+            <input message="tns:setPermissionToUser"/>
+            <output message="tns:setPermissionToUserResponse"/>
+            <fault name="EJBException" message="tns:EJBException"/>
+        </operation>
+        <operation name="sessionToUser">
+            <input message="tns:sessionToUser"/>
+            <output message="tns:sessionToUserResponse"/>
+        </operation>
+        <operation name="getPermissionsFromUser">
+            <input message="tns:getPermissionsFromUser"/>
+            <output message="tns:getPermissionsFromUserResponse"/>
+            <fault name="EJBException" message="tns:EJBException"/>
+        </operation>
+        <operation name="login">
+            <input message="tns:login"/>
+            <output message="tns:loginResponse"/>
+            <fault name="EJBException" message="tns:EJBException"/>
+        </operation>
+        <operation name="createUser">
+            <input message="tns:createUser"/>
+            <output message="tns:createUserResponse"/>
+            <fault name="EJBException" message="tns:EJBException"/>
+        </operation>
+        <operation name="getListObject">
+            <input message="tns:getListObject"/>
+            <output message="tns:getListObjectResponse"/>
+            <fault name="EJBException" message="tns:EJBException"/>
+        </operation>
+        <operation name="getObject">
+            <input message="tns:getObject"/>
+            <output message="tns:getObjectResponse"/>
+            <fault name="EJBException" message="tns:EJBException"/>
+        </operation>
+        <operation name="writeObject">
+            <input message="tns:writeObject"/>
+            <output message="tns:writeObjectResponse"/>
+            <fault name="EJBException" message="tns:EJBException"/>
+        </operation>
+        <operation name="removeObject">
+            <input message="tns:removeObject"/>
+            <output message="tns:removeObjectResponse"/>
+            <fault name="EJBException" message="tns:EJBException"/>
+        </operation>
+    </portType>
+    <binding name="AccessAuthPortBinding" type="tns:AccessAuth">
+        <wsp:PolicyReference URI="#AccessAuthPortBindingPolicy"/>
+        <operation name="initUsers">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="initPermissions">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="initObjects">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="startSession">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getUsers">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getSessions">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getPermissions">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getObjects">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="setPermissionToUser">
+            <input/>
+            <output/>
+            <fault name="EJBException"/>
+        </operation>
+        <operation name="sessionToUser">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getPermissionsFromUser">
+            <input/>
+            <output/>
+            <fault name="EJBException"/>
+        </operation>
+        <operation name="login">
+            <input/>
+            <output/>
+            <fault name="EJBException"/>
+        </operation>
+        <operation name="createUser">
+            <input/>
+            <output/>
+            <fault name="EJBException"/>
+        </operation>
+        <operation name="getListObject">
+            <input/>
+            <output/>
+            <fault name="EJBException"/>
+        </operation>
+        <operation name="getObject">
+            <input/>
+            <output/>
+            <fault name="EJBException"/>
+        </operation>
+        <operation name="writeObject">
+            <input/>
+            <output/>
+            <fault name="EJBException"/>
+        </operation>
+        <operation name="removeObject">
+            <input/>
+            <output/>
+            <fault name="EJBException"/>
+        </operation>
+    </binding>
+    <service name="WSTest">
+        <port name="AccessAuthPort" binding="tns:AccessAuthPortBinding"/>
+    </service>
+    <wsp:Policy wsu:Id="AccessAuthPortBindingPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All/>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>
