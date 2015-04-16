@@ -2,7 +2,7 @@ package services;
 
 import common.AbstractShape;
 import common.Circle;
-import ejb.SimpleDAOLocal;
+import ejb.SimpleDAO;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebService;
@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 public class AccessAuthWS implements IAccessAuth {
 
     @EJB
-    private SimpleDAOLocal simpleDAO;
+    private SimpleDAO simpleDAO;
 
     @Override
     @WebMethod(operationName = "login")

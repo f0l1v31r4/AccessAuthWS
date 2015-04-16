@@ -5,7 +5,7 @@
  */
 package controller;
 
-import ejb.SimpleDAOLocal;
+import ejb.SimpleDAO;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -22,7 +22,7 @@ import javax.ejb.EJB;
 public class SessionsBean implements Serializable
 {
   @EJB
-  private SimpleDAOLocal simpleDAO;
+  private SimpleDAO simpleDAO;
   
   
   public SessionsBean()
@@ -34,11 +34,11 @@ public class SessionsBean implements Serializable
     
     List<String>list  = new ArrayList<>();
     
-    simpleDAO.getSessions().keySet().stream().forEach((list1) ->
+    simpleDAO.getSessions();
+    for (String list1 : simpleDAO.getSessions().keySet())
     {
       list.add(list1);
-    });
-    
+    }
     return list;
   }
 }

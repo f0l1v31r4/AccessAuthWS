@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 @Singleton
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 @Startup
-public class SimpleDAO implements SimpleDAOLocal
+public class SimpleDAO
 {
 
   private final Map<String, String> users = new HashMap<>();
@@ -100,7 +100,6 @@ public class SimpleDAO implements SimpleDAOLocal
    * @param user o login do usuário do sistema
    * @return um identificador único da sessão
    */
-  @Override
   @Lock(LockType.WRITE)
   public String startSession(String user)
   {
@@ -128,7 +127,6 @@ public class SimpleDAO implements SimpleDAOLocal
    * @return true em caso de sucesso e false caso contrário
    * @throws EJBException
    */
-  @Override
   @Lock(LockType.WRITE)
   public Boolean createUser(String name, String passwd) throws EJBException
   {
@@ -169,7 +167,6 @@ public class SimpleDAO implements SimpleDAOLocal
    * @param permission as permissões do usuário
    * @throws EJBException
    */
-  @Override
   @Lock(LockType.WRITE)
   public void setPermissionToUser(String user, IPermission permission) throws EJBException
   {
@@ -192,7 +189,6 @@ public class SimpleDAO implements SimpleDAOLocal
    * @return
    * @throws EJBException
    */
-  @Override
   @Lock(LockType.READ)
   public List<String> getListObject(String session) throws EJBException
   {
@@ -222,7 +218,6 @@ public class SimpleDAO implements SimpleDAOLocal
    * @return
    * @throws EJBException
    */
-  @Override
   @Lock(LockType.READ)
   public AbstractShape getObject(String session, String id) throws EJBException
   {
@@ -293,7 +288,6 @@ public class SimpleDAO implements SimpleDAOLocal
     return permission;
   }
 
-  @Override
   @Lock(LockType.WRITE)
   public Boolean writeObject(String session, AbstractShape shape) throws EJBException
   {
@@ -321,7 +315,6 @@ public class SimpleDAO implements SimpleDAOLocal
     return successfull;
   }
 
-  @Override
   @Lock(LockType.WRITE)
   public Boolean removeObject(String session, String id) throws EJBException
   {
@@ -352,7 +345,6 @@ public class SimpleDAO implements SimpleDAOLocal
     return successfull;
   }
 
-  @Override
   @Lock(LockType.READ)
   public Map<String, String> getUsers()
   {
@@ -361,7 +353,6 @@ public class SimpleDAO implements SimpleDAOLocal
     return users;
   }
 
-  @Override
   @Lock(LockType.READ)
   public Map<String, String> getSessions()
   {
@@ -369,8 +360,7 @@ public class SimpleDAO implements SimpleDAOLocal
     LOGGER.info(message);
     return sessions;
   }
-
-  @Override
+  
   @Lock(LockType.READ)
   public Map<String, IPermission> getPermissions()
   {
@@ -379,7 +369,6 @@ public class SimpleDAO implements SimpleDAOLocal
     return permissions;
   }
 
-  @Override
   @Lock(LockType.READ)
   public Map<String, AbstractShape> getObjects()
   {
