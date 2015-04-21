@@ -10,6 +10,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 
@@ -34,10 +35,10 @@ public class SessionsBean implements Serializable
     
     List<String>list  = new ArrayList<>();
     
-    simpleDAO.getSessions().keySet().stream().forEach((list1) ->
-    {
-      list.add(list1);
-    });
+      for (Iterator<String> iterator = list.iterator(); iterator.hasNext();) {
+          String next = iterator.next();
+          list.add(next);
+      }
     
     return list;
   }

@@ -19,6 +19,7 @@ import common.IPermission;
 import common.SimplePermission;
 import common.Square;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 /**
@@ -89,7 +90,7 @@ public class SimpleDAO implements SimpleDAOLocal
     objects.put("Obj1", new Square("Obj1", "admin"));
     objects.put("Obj2", new Circle("Obj2", "admin"));
     objects.put("Obj3", new Square("Obj3", "caio"));
-    objects.put("Obj4", new Circle("Obj3", "antonio"));
+    objects.put("Obj4", new Circle("Obj4", "antonio"));
     message = String.format("Criando objetos de exemplo %s.", objects);
     LOGGER.info(message);
   }
@@ -194,9 +195,9 @@ public class SimpleDAO implements SimpleDAOLocal
    */
   @Override
   @Lock(LockType.READ)
-  public List<String> getListObject(String session) throws EJBException
+  public String getListObject(String session) throws EJBException
   {
-    List<String> listObject = new ArrayList<>();
+    String listObject = "";
 
     if (!sessions.containsKey(session))
     {
@@ -205,11 +206,11 @@ public class SimpleDAO implements SimpleDAOLocal
       throw new EJBException(message);
     }
 
-    objects.values().stream().map((shape) -> shape.toString()).forEach((info) ->
-    {
-      listObject.add(info);
-    });
-
+      for (AbstractShape shape : objects.values()) {
+          String next = shape.toString();
+          listObject = listObject + next + ";";
+      }
+      
     message = String.format("Sessão %s, solicitando os objetos %s.", session, listObject);
     LOGGER.info(message);
     return listObject;
@@ -274,7 +275,7 @@ public class SimpleDAO implements SimpleDAOLocal
   public boolean[] getPermissionsFromUser(String user) throws EJBException
   {
     // permissao padrao
-    boolean[] permission = { false, false  };
+    boolean[] permission = { false, false };
     // se o usuário for inválido, lança um erro
     if (!users.containsKey(user) || user.isEmpty())
     {
