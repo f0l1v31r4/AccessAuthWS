@@ -19,7 +19,7 @@ public interface SimpleDAOLocal {
     void setPermissionToUser(String user, IPermission permission) throws EJBException;
     String getListObject(String session) throws EJBException;
     AbstractShape getObject(String session, String id) throws EJBException;
-    Boolean writeObject(String session,AbstractShape shape) throws EJBException;
+    Boolean writeObject(String session,String shape) throws EJBException;
     Boolean removeObject(String session, String id) throws EJBException;
     Map<String, String> getUsers();
     Map<String, String> getSessions();

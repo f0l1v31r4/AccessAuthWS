@@ -50,7 +50,7 @@ public class AccessAuthWS implements IAccessAuth {
 
     @Override
     @WebMethod(operationName = "writeObject")
-    public boolean writeObject(@WebParam(name = "session") String session, @WebParam(name = "shape") AbstractShape shape) throws Exception {
+    public boolean writeObject(@WebParam(name = "session") String session, @WebParam(name = "shape") String shape) throws Exception {
         return simpleDAO.writeObject(session, shape);
     }
 

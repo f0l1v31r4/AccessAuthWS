@@ -296,7 +296,7 @@ public class SimpleDAO implements SimpleDAOLocal
 
   @Override
   @Lock(LockType.WRITE)
-  public Boolean writeObject(String session, AbstractShape shape) throws EJBException
+  public Boolean writeObject(String session, String shape) throws EJBException
   {
     boolean successfull;
 
@@ -315,8 +315,15 @@ public class SimpleDAO implements SimpleDAOLocal
       throw new EJBException(message);
     }
 
-    LOGGER.info(String.format("Solicitacao de escrita de objeto %s do usuario da sessao %s", shape.getId(), session));
-    objects.put(user, shape);
+    LOGGER.info(String.format("Solicitacao de escrita de objeto %s do usuario da sessao %s", session,  session));//shape.getId(),
+    //objects.put(user, shape);
+    String[] idObject = shape.split("\\s");
+    if(idObject[0].contains("Circle")){
+        objects.put(idObject[2], new Circle(idObject[2], idObject[4]));
+    }else{
+        objects.put(idObject[2], new Square(idObject[2], idObject[4]));
+    }
+        
     successfull = true;
 
     return successfull;

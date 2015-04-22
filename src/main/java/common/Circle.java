@@ -6,11 +6,15 @@ package common;
  */
 public class Circle extends AbstractShape
 {
-
+   public Circle(){
+       
+   }
+    
   public Circle(String id, String owner)
   {
     super(id, owner);
   }
+ 
 
   @Override
   public String toString()

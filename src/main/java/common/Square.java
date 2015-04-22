@@ -4,18 +4,19 @@ package common;
  *
  * @author foliveira
  */
-public class Square extends AbstractShape
-{
+public class Square extends AbstractShape {
 
-  public Square(String id, String owner)
-  {
-    super(id, owner);
-  }
+    public Square() {
 
-  @Override
-  public String toString()
-  {
-    return String.format("%s id: %s owner: %s",Square.class.getName(), id ,owner );
-  }
-  
+    }
+
+    public Square(String id, String owner) {
+        super(id, owner);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s id: %s owner: %s", Square.class.getName(), id, owner);
+    }
+
 }

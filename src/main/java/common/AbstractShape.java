@@ -8,9 +8,13 @@ import java.io.Serializable;
  */
 public abstract class AbstractShape implements  Serializable
 {
-  protected final String id;
+  protected String id = "";
   protected String owner;
  
+  public AbstractShape(){
+      
+  }
+  
   public AbstractShape(String id, String owner)
   {
     this.id = id;
